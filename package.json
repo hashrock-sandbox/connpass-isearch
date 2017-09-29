@@ -11,5 +11,8 @@
   "license": "ISC",
   "devDependencies": {
     "cheerio-httpcli": "^0.7.1"
+  },
+  "dependencies": {
+    "express": "^4.16.0"
   }
 }

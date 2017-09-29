@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Connpass Finder for Vue</title>
+</head>
+
+<body>
+  <div id="app">
+    <div>
+      <input type="text" v-model="query">
+    </div>
+    <div class="user" v-for="user in users">
+      {{user.screenName}} {{user.id}} {{user.ptype}} {{user.status}} {{user.twitter}}
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue@2.4.4/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        users: [],
+        query: "",
+      },
+      mounted: function () {
+        fetch("/connpass").then((response) => {
+          return response.json();
+        }).then((json) => {
+          this.users = json
+        });
+      }
+    })
+  </script>
+
+
+</body>
+
+</html>
