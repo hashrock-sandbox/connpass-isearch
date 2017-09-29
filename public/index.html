@@ -28,7 +28,10 @@
     flex: 1;
     font-size: 1.5rem;
   }
-  
+  .user{
+    word-wrap: break-word;
+    white-space: normal;
+  }
   </style>
 </head>
 
@@ -56,9 +59,9 @@
             if(this.query.trim() === ""){
               return true;
             }
-            return item.screenName.indexOf(this.query) > -1 || 
-              item.id.indexOf(this.query) > -1 ||
-              item.twitter.indexOf(this.query) > -1
+            return item.screenName.toLowerCase().indexOf(this.query) > -1 || 
+              item.id.toLowerCase().indexOf(this.query) > -1 ||
+              item.twitter.toLowerCase().indexOf(this.query) > -1
           })
         }
       },
