@@ -38,7 +38,7 @@
 <body>
   <div id="app">
     <div class="query-container">
-      <input type="text" v-model="query">
+      <input type="text" v-model="query" autofocus>
     </div>
     <div class="user" v-for="user in filtered">
         <span class="id">{{user.id}}</span>({{user.screenName}}) {{user.twitter}} <span class="badge">{{user.ptype}} {{user.status}}</span>
