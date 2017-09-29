@@ -6,15 +6,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Connpass Finder for Vue</title>
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+  <style>
+  body{
+    font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+    color: #2c3e50;
+    margin: 2rem;
+  }
+  .badge{
+    color: #42b983;
+    font-size: 0.5rem;
+  }
+  .id{
+    font-weight: 900;
+    font-size: 1.5rem;
+  }
+  .query-container{
+    display: flex;
+  }
+  input{
+    flex: 1;
+    font-size: 1.5rem;
+  }
+  
+  </style>
 </head>
 
 <body>
   <div id="app">
-    <div>
+    <div class="query-container">
       <input type="text" v-model="query">
     </div>
-    <div class="user" v-for="user in users">
-      {{user.screenName}} {{user.id}} {{user.ptype}} {{user.status}} {{user.twitter}}
+    <div class="user" v-for="user in filtered">
+        <span class="id">{{user.id}}</span>({{user.screenName}}) {{user.twitter}} <span class="badge">{{user.ptype}} {{user.status}}</span>
     </div>
   </div>
 
@@ -25,6 +49,18 @@
       data: {
         users: [],
         query: "",
+      },
+      computed: {
+        "filtered": function(){
+          return this.users.filter((item)=>{
+            if(this.query.trim() === ""){
+              return true;
+            }
+            return item.screenName.indexOf(this.query) > -1 || 
+              item.id.indexOf(this.query) > -1 ||
+              item.twitter.indexOf(this.query) > -1
+          })
+        }
       },
       mounted: function () {
         fetch("/connpass").then((response) => {
